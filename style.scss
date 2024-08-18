@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background: #c4c4c4;
+}
+
+.app {
+  margin-top: 100px;
+}
+
+.container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.wrapper {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+
+  &__search-input {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    padding: 10px;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &__result-list {
+    list-style: none;
+    display: none;
+  }
+
+  &__result-item {
+    padding: 10px;
+  }
+}
