@@ -7,16 +7,21 @@ const resultItems = document.querySelectorAll(".wrapper__result-item");
 const gitHubReposUrl = "https://api.github.com/repositories";
 
 async function getGitHubRepos() {
-  const response = await fetch(gitHubReposUrl);
-  if (!response.ok) {
-    throw new Error(`Request failed, status ${response.status}`);
+  try {
+    const response = await fetch(gitHubReposUrl);
+    if (!response.ok) {
+      throw new Error(`Request failed, status ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
   }
-  const data = await response.json();
-  return data;
 }
 
 async function showResults(repoName) {
   const reposData = await getGitHubRepos();
+  console.log(repoName);
   if (repoName.trim()) {
     let firstFive = reposData
       .filter((repo) => {
@@ -28,26 +33,31 @@ async function showResults(repoName) {
       })
       .slice(0, 5);
     resultItems.forEach((li, i) => {
-      li.textContent = firstFive[i]?.name;
+      if (firstFive[i]?.name) {
+        li.textContent = firstFive[i].name;
+        li.style.display = "block";
+      } else {
+        li.style.display = "none";
+      }
     });
     resultList.style.display = "block";
   } else {
     resultList.style.display = "none";
   }
 }
+
 if (searchInput) {
   searchInput.addEventListener("input", (e) => {
-    console.log(e.target.value);
-    debounce(showResults, 600)(e.target.value);
+    debounce(showResults, 400)(e.target.value);
   });
 }
 
-function debounce(fn, ms) {
+function debounce(fn, delay) {
   let timerID;
   return function (...args) {
     clearTimeout(timerID);
     timerID = setTimeout(() => {
       fn.apply(this, args);
-    }, ms);
+    }, delay);
   };
 }

@@ -41,10 +41,17 @@ body {
 
   &__result-list {
     list-style: none;
-    display: none;
   }
 
   &__result-item {
+    display: none;
     padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  &__result-item:hover {
+    background-color: black;
+    color: #fff;
   }
 }
