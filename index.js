@@ -11,6 +11,7 @@ const gitHubReposUrl =
 // Получение массива репозиториев с GitHub API
 async function getGitHubRepos(queryText) {
   try {
+    console.log("Get");
     const response = await fetch(
       `https://api.github.com/search/repositories?q=${queryText}&per_page=5`
     );
@@ -61,8 +62,9 @@ async function showSearchResults(repoName) {
 
 // Обработка события input
 if (searchInput) {
+  const debounceShowSearchResults = debounce(showSearchResults, 500);
   searchInput.addEventListener("input", (e) => {
-    debounce(showSearchResults, 700)(e.target.value);
+    debounceShowSearchResults(e.target.value);
   });
 }
 
